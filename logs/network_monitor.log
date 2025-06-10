@@ -1,0 +1,253 @@
+[2025-05-11 15:20:51] Starting network monitor...
+[2025-05-11 15:20:52] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:20:54] Starting network monitor...
+[2025-05-11 15:20:54] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:20:56] Starting network monitor...
+[2025-05-11 15:20:56] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:20:59] Starting network monitor...
+[2025-05-11 15:20:59] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:21:02] Starting network monitor...
+[2025-05-11 15:21:02] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:21:05] Starting network monitor...
+[2025-05-11 15:21:05] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:21:10] Starting network monitor...
+[2025-05-11 15:21:10] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:21:18] Starting network monitor...
+[2025-05-11 15:21:18] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:01] Starting network monitor...
+[2025-05-11 15:27:01] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:04] Starting network monitor...
+[2025-05-11 15:27:04] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:06] Starting network monitor...
+[2025-05-11 15:27:06] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:09] Starting network monitor...
+[2025-05-11 15:27:09] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:12] Starting network monitor...
+[2025-05-11 15:27:12] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:15] Starting network monitor...
+[2025-05-11 15:27:15] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:27:20] Starting network monitor...
+[2025-05-11 15:27:20] Fatal error: log() got an unexpected keyword argument 'print_message'
+[2025-05-11 15:31:29] Starting network monitor...
+[2025-05-11 15:31:29] UniFi Switch is reachable
+[2025-05-11 15:31:29] Synology NAS is reachable
+[2025-05-11 15:31:29] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:31:31] Starting network monitor...
+[2025-05-11 15:31:31] UniFi Switch is reachable
+[2025-05-11 15:31:31] Synology NAS is reachable
+[2025-05-11 15:31:31] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:31:34] Starting network monitor...
+[2025-05-11 15:31:34] UniFi Switch is reachable
+[2025-05-11 15:31:34] Synology NAS is reachable
+[2025-05-11 15:31:34] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:31:37] Starting network monitor...
+[2025-05-11 15:31:37] UniFi Switch is reachable
+[2025-05-11 15:31:37] Synology NAS is reachable
+[2025-05-11 15:31:37] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:31:40] Starting network monitor...
+[2025-05-11 15:31:40] UniFi Switch is reachable
+[2025-05-11 15:31:40] Synology NAS is reachable
+[2025-05-11 15:31:40] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:31:43] Starting network monitor...
+[2025-05-11 15:31:43] UniFi Switch is reachable
+[2025-05-11 15:31:43] Synology NAS is reachable
+[2025-05-11 15:31:43] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:31:48] Starting network monitor...
+[2025-05-11 15:31:48] UniFi Switch is reachable
+[2025-05-11 15:31:48] Synology NAS is reachable
+[2025-05-11 15:31:48] Fatal error: module 'time' has no attribute 'timedelta'
+[2025-05-11 15:38:21] Starting network monitor...
+[2025-05-11 15:38:22] UniFi Switch is reachable
+[2025-05-11 15:38:22] Synology NAS is reachable
+[2025-05-11 15:38:22] Next check in 1 hour at 16:38:22
+[2025-05-11 15:48:23] Starting network monitor...
+[2025-05-11 15:48:23] UniFi Switch is reachable
+[2025-05-11 15:48:23] Synology NAS is reachable
+[2025-05-11 15:48:23] ENCODER-SERVICE is reachable
+[2025-05-11 15:48:23] ENCODER-SERMON is reachable
+[2025-05-11 15:48:23] DECODER-PRODUCTION is reachable
+[2025-05-11 15:48:23] DECODER-FOH is reachable
+[2025-05-11 15:48:23] DECODER-CONFIDENCE is reachable
+[2025-05-11 15:48:23] QSYS_CORE is reachable
+[2025-05-11 15:48:23] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 15:48:23] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 15:48:23] LOBBY_PROJECTOR is reachable
+[2025-05-11 15:48:23] Next check in 1 hour at 16:48:23
+[2025-05-11 15:52:42] Starting network monitor...
+[2025-05-11 15:52:42] UniFi Switch is reachable
+[2025-05-11 15:52:42] Synology NAS is reachable
+[2025-05-11 15:52:42] ENCODER-SERVICE is reachable
+[2025-05-11 15:52:42] ENCODER-SERMON is reachable
+[2025-05-11 15:52:42] DECODER-PRODUCTION is reachable
+[2025-05-11 15:52:42] DECODER-FOH is reachable
+[2025-05-11 15:52:42] DECODER-CONFIDENCE is reachable
+[2025-05-11 15:52:42] QSYS_CORE is reachable
+[2025-05-11 15:52:42] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 15:52:42] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 15:52:42] LOBBY_PROJECTOR is reachable
+[2025-05-11 15:52:44] ALERT: OLD_PROJECTOR (10.10.41.5) is down
+[2025-05-11 15:52:45] Email failed: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials af79cd13be357-7cd00f4e0cfsm402583885a.24 - gsmtp')
+[2025-05-11 15:52:45] Next check in 1 hour at 16:52:45
+[2025-05-11 15:58:20] Starting network monitor...
+[2025-05-11 15:58:20] UniFi Switch is reachable
+[2025-05-11 15:58:20] Synology NAS is reachable
+[2025-05-11 15:58:20] ENCODER-SERVICE is reachable
+[2025-05-11 15:58:20] ENCODER-SERMON is reachable
+[2025-05-11 15:58:20] DECODER-PRODUCTION is reachable
+[2025-05-11 15:58:20] DECODER-FOH is reachable
+[2025-05-11 15:58:20] DECODER-CONFIDENCE is reachable
+[2025-05-11 15:58:20] QSYS_CORE is reachable
+[2025-05-11 15:58:20] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 15:58:20] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 15:58:20] LOBBY_PROJECTOR is reachable
+[2025-05-11 15:58:22] ALERT: OLD_PROJECTOR (10.10.41.5) is down
+[2025-05-11 15:58:23] Email failed: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 6a1803df08f44-6f6e39f47f7sm38908076d6.47 - gsmtp')
+[2025-05-11 15:58:23] Next check in 1 hour at 16:58:23
+[2025-05-11 16:02:58] Starting network monitor...
+[2025-05-11 16:02:58] UniFi Switch is reachable
+[2025-05-11 16:02:58] Synology NAS is reachable
+[2025-05-11 16:02:58] ENCODER-SERVICE is reachable
+[2025-05-11 16:02:58] ENCODER-SERMON is reachable
+[2025-05-11 16:02:58] DECODER-PRODUCTION is reachable
+[2025-05-11 16:02:58] DECODER-FOH is reachable
+[2025-05-11 16:02:58] DECODER-CONFIDENCE is reachable
+[2025-05-11 16:02:58] QSYS_CORE is reachable
+[2025-05-11 16:02:58] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 16:02:58] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 16:02:58] LOBBY_PROJECTOR is reachable
+[2025-05-11 16:03:00] ALERT: OLD_PROJECTOR (10.10.41.5) is down
+[2025-05-11 16:03:00] Email failed: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials af79cd13be357-7cd00fe7605sm398707585a.100 - gsmtp')
+[2025-05-11 16:03:00] Next check in 1 hour at 17:03:00
+[2025-05-11 16:09:29] Starting network monitor...
+[2025-05-11 16:09:29] UniFi Switch is reachable
+[2025-05-11 16:09:29] Synology NAS is reachable
+[2025-05-11 16:09:29] ENCODER-SERVICE is reachable
+[2025-05-11 16:09:29] ENCODER-SERMON is reachable
+[2025-05-11 16:09:29] DECODER-PRODUCTION is reachable
+[2025-05-11 16:09:29] DECODER-FOH is reachable
+[2025-05-11 16:09:29] DECODER-CONFIDENCE is reachable
+[2025-05-11 16:09:29] QSYS_CORE is reachable
+[2025-05-11 16:09:29] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 16:09:29] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 16:09:29] LOBBY_PROJECTOR is reachable
+[2025-05-11 16:09:31] ALERT: OLD_PROJECTOR (10.10.41.5) is down
+[2025-05-11 16:09:32] Alert email sent successfully
+[2025-05-11 16:09:32] Next check in 1 hour at 17:09:32
+[2025-05-11 16:17:12] Starting network monitor...
+[2025-05-11 16:17:12] UniFi Switch is reachable
+[2025-05-11 16:17:12] Synology NAS is reachable
+[2025-05-11 16:17:12] ENCODER-SERVICE is reachable
+[2025-05-11 16:17:12] ENCODER-SERMON is reachable
+[2025-05-11 16:17:12] DECODER-PRODUCTION is reachable
+[2025-05-11 16:17:12] DECODER-FOH is reachable
+[2025-05-11 16:17:12] DECODER-CONFIDENCE is reachable
+[2025-05-11 16:17:12] QSYS_CORE is reachable
+[2025-05-11 16:17:12] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 16:17:12] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 16:17:12] LOBBY_PROJECTOR is reachable
+[2025-05-11 16:17:14] ALERT: ATEM 1 M/E Advanced Panel (10.10.41.21) is down
+[2025-05-11 16:17:14] ATEM 4 M/E Broadcast Studio 4K is reachable
+[2025-05-11 16:17:14] AUD_PROJECTOR_Center is reachable
+[2025-05-11 16:17:14] ATEM ROUTER - MainRack is reachable
+[2025-05-11 16:17:16] ALERT: ATEM 1 M/E Advanced Panel (10.10.41.21) is down
+[2025-05-11 16:17:18] ALERT: Resi Encoder - Agawam (10.10.41.129) is down
+[2025-05-11 16:17:19] Alert email sent successfully
+[2025-05-11 16:17:19] Next check in 1 hour at 17:17:19
+[2025-05-11 16:20:19] Starting network monitor...
+[2025-05-11 16:20:19] UniFi Switch is reachable
+[2025-05-11 16:20:19] Synology NAS is reachable
+[2025-05-11 16:20:19] ENCODER-SERVICE is reachable
+[2025-05-11 16:20:19] ENCODER-SERMON is reachable
+[2025-05-11 16:20:19] DECODER-PRODUCTION is reachable
+[2025-05-11 16:20:19] DECODER-FOH is reachable
+[2025-05-11 16:20:19] DECODER-CONFIDENCE is reachable
+[2025-05-11 16:20:19] QSYS_CORE is reachable
+[2025-05-11 16:20:19] AUD_PROJECTOR_RIGHT is reachable
+[2025-05-11 16:20:19] AUD_PROJECTOR_LEFT is reachable
+[2025-05-11 16:20:19] LOBBY_PROJECTOR is reachable
+[2025-05-11 16:20:19] ATEM 1 M/E Advanced Panel is reachable
+[2025-05-11 16:20:19] ATEM 4 M/E Broadcast Studio 4K is reachable
+[2025-05-11 16:20:19] AUD_PROJECTOR_Center is reachable
+[2025-05-11 16:20:19] ATEM ROUTER - MainRack is reachable
+[2025-05-11 16:20:19] ATEM 1 M/E Advanced Panel is reachable
+[2025-05-11 16:20:19] Resi Encoder - Agawam is reachable
+[2025-05-11 16:20:19] Next check in 1 hour at 17:20:19
+[2025-05-18 15:53:52] Starting monitor with SNMP support
+[2025-05-18 15:53:52] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:52] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:52] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:52] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 15:53:54] Starting monitor with SNMP support
+[2025-05-18 15:53:54] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:54] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:54] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:54] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 15:53:57] Starting monitor with SNMP support
+[2025-05-18 15:53:57] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:57] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:57] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:53:57] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 15:54:00] Starting monitor with SNMP support
+[2025-05-18 15:54:00] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:00] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:00] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:00] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 15:54:03] Starting monitor with SNMP support
+[2025-05-18 15:54:03] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:03] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:03] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:03] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 15:54:06] Starting monitor with SNMP support
+[2025-05-18 15:54:06] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:06] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:06] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:06] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 15:54:11] Starting monitor with SNMP support
+[2025-05-18 15:54:11] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:11] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:11] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 15:54:11] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 16:04:26] Starting monitor with SNMP support
+[2025-05-18 16:04:26] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:26] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:26] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:26] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 16:04:29] Starting monitor with SNMP support
+[2025-05-18 16:04:29] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:29] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:29] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:29] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 16:04:32] Starting monitor with SNMP support
+[2025-05-18 16:04:32] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:32] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:32] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:32] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 16:04:35] Starting monitor with SNMP support
+[2025-05-18 16:04:35] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:35] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:35] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:35] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 16:04:38] Starting monitor with SNMP support
+[2025-05-18 16:04:38] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:38] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:38] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:04:38] Fatal error: name 'is_reachable' is not defined
+[2025-05-18 16:09:01] Starting monitor with SNMP support
+[2025-05-18 16:09:01] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:09:01] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:09:01] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:09:03] Alert email sent
+[2025-05-18 16:19:45] Starting monitor with SNMP support
+[2025-05-18 16:19:45] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:19:45] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:19:45] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:19:47] Alert email sent
+[2025-05-18 16:36:53] Starting monitor with SNMP support and web server
+[2025-05-18 16:36:53] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:36:53] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:36:59] Starting monitor with SNMP support and web server
+[2025-05-18 16:36:59] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:36:59] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:37:05] Starting monitor with SNMP support and web server
+[2025-05-18 16:37:05] SNMP exception for UniFi Switch: name 'getCmd' is not defined
+[2025-05-18 16:37:05] SNMP exception for UniFi Switch: name 'getCmd' is not defined

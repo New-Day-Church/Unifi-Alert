@@ -1,0 +1,5 @@
+smtp:
+  server: "smtp.gmail.com"
+  port: 587
+  sender: "dan@newdaychurch.cc"
+  recipient: "dan@newdaychurch.cc"

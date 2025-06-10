@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  monitor:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+    environment:
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+    cap_add:
+      - NET_RAW  # Required for ping
+    network_mode: host  # Access local network devices
