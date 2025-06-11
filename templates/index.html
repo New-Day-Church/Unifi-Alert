@@ -75,6 +75,28 @@
             font-size: 0.9rem;
             color: #666;
         }
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .device-info {
+            flex: 1;
+        }
+        .device-controls {
+            margin-left: 1rem;
+        }
+        .notification-toggle {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+            cursor: pointer;
+        }
+        .notification-toggle input {
+            margin-right: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -104,8 +126,20 @@
             
             div.className = `device ${statusClass}`;
             div.innerHTML = `
-                <div class="device-name">${device.name}</div>
-                <div class="device-ip">${device.ip}</div>
+                <div class="device-header">
+                    <div class="device-info">
+                        <div class="device-name">${device.name}</div>
+                        <div class="device-ip">${device.ip}</div>
+                    </div>
+                    <div class="device-controls">
+                        <label class="notification-toggle">
+                            <input type="checkbox" 
+                                   ${device.notifications_enabled ? 'checked' : ''} 
+                                   onchange="toggleNotifications('${device.name}', this.checked)">
+                            Notifications
+                        </label>
+                    </div>
+                </div>
                 <span class="status-badge badge-${statusClass}">${statusText}</span>
                 ${hasAlerts ? `
                     <div class="messages">
@@ -116,24 +150,58 @@
             return div;
         }
 
+        function toggleNotifications(deviceName, enabled) {
+            const update = {};
+            update[deviceName] = enabled;
+            
+            fetch('/api/device-settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(update)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Failed to update notification settings:', data.error);
+                    alert('Failed to update notification settings');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating notification settings:', error);
+                alert('Error updating notification settings');
+            });
+        }
+
+        // Extend updateStatus to include notification settings
         function updateStatus() {
-            fetch('/api/data')
-                .then(response => response.json())
-                .then(data => {
-                    const deviceStatus = document.getElementById('device-status');
-                    deviceStatus.innerHTML = '';
-                    
-                    Object.entries(data.device_status).forEach(([name, status]) => {
-                        const deviceElement = createStatusElement({
-                            name: name,
-                            ...status
-                        });
-                        deviceStatus.appendChild(deviceElement);
+            Promise.all([
+                fetch('/api/data').then(response => response.json()),
+                fetch('/api/device-settings').then(response => response.json())
+            ])
+            .then(([data, settings]) => {
+                const deviceStatus = document.getElementById('device-status');
+                deviceStatus.innerHTML = '';
+                
+                const notificationSettings = settings.success ? 
+                    settings.devices.reduce((acc, dev) => {
+                        acc[dev.name] = dev.notifications_enabled;
+                        return acc;
+                    }, {}) : {};
+                
+                Object.entries(data.device_status).forEach(([name, status]) => {
+                    const deviceElement = createStatusElement({
+                        name: name,
+                        notifications_enabled: notificationSettings[name] ?? true,
+                        ...status
                     });
-                    
-                    document.getElementById('last-update').textContent = formatTimestamp();
-                })
-                .catch(error => console.error('Error fetching status:', error));
+                    deviceStatus.appendChild(deviceElement);
+                });
+                
+                document.getElementById('last-update').textContent = formatTimestamp();
+            })
+            .catch(error => console.error('Error fetching status:', error));
         }
 
         // Update status every 5 seconds

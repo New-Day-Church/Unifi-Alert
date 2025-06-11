@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 import threading
 import time
 import yaml
@@ -137,6 +137,12 @@ def update_data():
                             mark_device_down(device["name"])
                             log(f"Device {device['name']} has gone down after {UNREACHABLE_THRESHOLD} failed pings")
                         
+                        # Check if notifications are enabled for this device
+                        notifications_enabled = device.get("notifications_enabled", True)
+                        if not notifications_enabled:
+                            log(f"Skipping alert for {device['name']} - notifications disabled")
+                            continue
+                        
                         # Check if we should send an alert
                         is_first_alert = device["name"] not in last_alert_times
                         if can_send_alert(device["name"], is_first_alert):
@@ -185,6 +191,52 @@ def api_data():
 def index():
     """Serve the main webpage."""
     return render_template('index.html')
+
+def save_devices_config(devices):
+    """Save devices configuration back to yaml file"""
+    config = {"devices": devices}
+    with open('/app/config/devices.yaml', 'w') as f:
+        yaml.safe_dump(config, f, default_flow_style=False)
+
+@app.route('/api/device-settings', methods=['GET'])
+def get_device_settings():
+    """Get current device notification settings"""
+    try:
+        with open('/app/config/devices.yaml') as f:
+            devices = yaml.safe_load(f)['devices']
+        return jsonify({
+            "success": True,
+            "devices": [{
+                "name": device["name"],
+                "notifications_enabled": device.get("notifications_enabled", True)
+            } for device in devices]
+        })
+    except Exception as e:
+        log(f"Error getting device settings: {str(e)}")
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/device-settings', methods=['POST'])
+def update_device_settings():
+    """Update device notification settings"""
+    try:
+        updates = request.get_json()
+        with open('/app/config/devices.yaml') as f:
+            config = yaml.safe_load(f)
+            devices = config['devices']
+        
+        # Update notifications_enabled for each device
+        for device in devices:
+            if device["name"] in updates:
+                device["notifications_enabled"] = updates[device["name"]]
+        
+        # Save changes back to file
+        save_devices_config(devices)
+        
+        log(f"Updated notification settings: {updates}")
+        return jsonify({"success": True})
+    except Exception as e:
+        log(f"Error updating device settings: {str(e)}")
+        return jsonify({"success": False, "error": str(e)}), 500
 
 def start_web_server():
     """Start the web server and background monitoring thread."""
