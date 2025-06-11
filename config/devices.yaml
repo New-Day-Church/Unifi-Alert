@@ -1,60 +1,68 @@
 devices:
   - name: "UniFi Switch"
     ip: "10.10.40.1"
-    type: "unifi_switch"
-    snmp_community: "your_community"  # Change this!
-    thresholds:
-      cpu: 80    # Alert if CPU > 80%
-      traffic: 75 # Alert if port utilization > 75%
-    interfaces:
-      Port1: "1.3.6.1.2.1.2.2.1.10.1"
-      Uplink: "1.3.6.1.2.1.2.2.1.10.48"
+    notifications_enabled: true
 
   - name: "Synology NAS"
     ip: "10.10.40.91"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "ENCODER-SERVICE"
     ip: "10.10.40.88"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "ENCODER-SERMON"
     ip: "10.10.40.89"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "DECODER-PRODUCTION"
     ip: "10.10.40.39"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "DECODER-FOH"
     ip: "10.10.40.37"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "DECODER-CONFIDENCE"
     ip: "10.10.40.38"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "QSYS_CORE"
     ip: "10.10.40.50"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "AUD_PROJECTOR_RIGHT"
     ip: "10.10.40.2"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "AUD_PROJECTOR_LEFT"
     ip: "10.10.40.2"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "LOBBY_PROJECTOR"
     ip: "10.10.40.5"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "ATEM 1 M/E Advanced Panel"
     ip: "10.10.40.21"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "ATEM 4 M/E Broadcast Studio 4K"
     ip: "10.10.40.20"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "AUD_PROJECTOR_Center"
     ip: "10.10.40.3"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "ATEM ROUTER - MainRack"
     ip: "10.10.40.187"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "ATEM 1 M/E Advanced Panel"
     ip: "10.10.40.21"
-    type: "ping"
+    notifications_enabled: true
+
   - name: "Resi Encoder - Agawam"
     ip: "10.10.40.129"
-    type: "ping"
+    notifications_enabled: true

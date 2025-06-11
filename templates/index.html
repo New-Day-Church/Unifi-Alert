@@ -47,6 +47,11 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
+        .device-ip {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
         .status-badge {
             display: inline-block;
             padding: 0.25rem 0.5rem;
@@ -70,6 +75,28 @@
             font-size: 0.9rem;
             color: #666;
         }
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .device-info {
+            flex: 1;
+        }
+        .device-controls {
+            margin-left: 1rem;
+        }
+        .notification-toggle {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+            cursor: pointer;
+        }
+        .notification-toggle input {
+            margin-right: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -77,12 +104,8 @@
         <h1>Network Monitor</h1>
         <div class="status-grid">
             <div class="card">
-                <h2>SNMP Devices</h2>
-                <div id="snmp-info"></div>
-            </div>
-            <div class="card">
-                <h2>IP Status</h2>
-                <div id="ip-status"></div>
+                <h2>Device Status</h2>
+                <div id="device-status"></div>
             </div>
         </div>
         <div class="refresh-time">Last updated: <span id="last-update">Never</span></div>
@@ -93,64 +116,97 @@
             return new Date().toLocaleString();
         }
 
-        function createStatusElement(name, status, messages = []) {
+        function createStatusElement(device) {
             const div = document.createElement('div');
-            let statusClass = 'ok';
-            let statusText = 'OK';
+            const isReachable = device.reachable;
+            const hasAlerts = device.messages && device.messages.length > 0;
             
-            if (status === 'Alert' || status.status === 'Alert') {
-                statusClass = 'alert';
-                statusText = 'Alert';
-            } else if (status === 'Unreachable') {
-                statusClass = 'unreachable';
-                statusText = 'Unreachable';
-            }
+            let statusClass = isReachable ? (hasAlerts ? 'alert' : 'ok') : 'unreachable';
+            let statusText = isReachable ? (hasAlerts ? 'Alert' : 'OK') : 'Unreachable';
             
             div.className = `device ${statusClass}`;
-            
-            const html = `
-                <div class="device-name">${name}</div>
+            div.innerHTML = `
+                <div class="device-header">
+                    <div class="device-info">
+                        <div class="device-name">${device.name}</div>
+                        <div class="device-ip">${device.ip}</div>
+                    </div>
+                    <div class="device-controls">
+                        <label class="notification-toggle">
+                            <input type="checkbox" 
+                                   ${device.notifications_enabled ? 'checked' : ''} 
+                                   onchange="toggleNotifications('${device.name}', this.checked)">
+                            Notifications
+                        </label>
+                    </div>
+                </div>
                 <span class="status-badge badge-${statusClass}">${statusText}</span>
-                ${messages && messages.length ? `
+                ${hasAlerts ? `
                     <div class="messages">
-                        ${messages.map(msg => `<div>• ${msg}</div>`).join('')}
+                        ${device.messages.map(msg => `<div>• ${msg}</div>`).join('')}
                     </div>
                 ` : ''}
             `;
-            
-            div.innerHTML = html;
             return div;
         }
 
-        function fetchData() {
-            fetch('/api/data')
-                .then(response => response.json())
-                .then(data => {
-                    // Update SNMP information
-                    const snmpInfo = document.getElementById('snmp-info');
-                    snmpInfo.innerHTML = '';
-                    for (const [device, value] of Object.entries(data.snmp_info)) {
-                        snmpInfo.appendChild(createStatusElement(device, value, value.messages));
-                    }
-
-                    // Update IP status
-                    const ipStatus = document.getElementById('ip-status');
-                    ipStatus.innerHTML = '';
-                    for (const [device, status] of Object.entries(data.ip_status)) {
-                        ipStatus.appendChild(createStatusElement(device, status));
-                    }
-
-                    // Update timestamp
-                    document.getElementById('last-update').textContent = formatTimestamp();
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
+        function toggleNotifications(deviceName, enabled) {
+            const update = {};
+            update[deviceName] = enabled;
+            
+            fetch('/api/device-settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(update)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Failed to update notification settings:', data.error);
+                    alert('Failed to update notification settings');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating notification settings:', error);
+                alert('Error updating notification settings');
+            });
         }
 
-        // Refresh data every 5 seconds
-        setInterval(fetchData, 5000);
-        window.onload = fetchData;
+        // Extend updateStatus to include notification settings
+        function updateStatus() {
+            Promise.all([
+                fetch('/api/data').then(response => response.json()),
+                fetch('/api/device-settings').then(response => response.json())
+            ])
+            .then(([data, settings]) => {
+                const deviceStatus = document.getElementById('device-status');
+                deviceStatus.innerHTML = '';
+                
+                const notificationSettings = settings.success ? 
+                    settings.devices.reduce((acc, dev) => {
+                        acc[dev.name] = dev.notifications_enabled;
+                        return acc;
+                    }, {}) : {};
+                
+                Object.entries(data.device_status).forEach(([name, status]) => {
+                    const deviceElement = createStatusElement({
+                        name: name,
+                        notifications_enabled: notificationSettings[name] ?? true,
+                        ...status
+                    });
+                    deviceStatus.appendChild(deviceElement);
+                });
+                
+                document.getElementById('last-update').textContent = formatTimestamp();
+            })
+            .catch(error => console.error('Error fetching status:', error));
+        }
+
+        // Update status every 5 seconds
+        updateStatus();
+        setInterval(updateStatus, 5000);
     </script>
 </body>
 </html>

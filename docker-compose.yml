@@ -9,6 +9,8 @@ services:
       - ./logs:/app/logs
     environment:
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - PORT=5002  # Web server port
+      - PING_INTERVAL=30  # Check devices every 30 seconds
     cap_add:
       - NET_RAW  # Required for ping
     network_mode: host  # Access local network devices
