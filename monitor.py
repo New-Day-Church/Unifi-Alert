@@ -24,9 +24,14 @@ def log(message):
         f.write(log_entry + '\n')
 
 # Load email configuration from yaml file
-with open('/app/config/email.yaml') as f:
-    email_config = yaml.safe_load(f)['smtp']
-    
+try:
+    with open('/app/config/email.yaml') as f:
+        email_config = yaml.safe_load(f)['smtp']
+    log(f"Email configuration loaded: server={email_config['server']}, port={email_config['port']}, sender={email_config['sender']}")
+except Exception as e:
+    log(f"Error loading email configuration: {str(e)}")
+    raise
+
 smtp_server = email_config['server']
 smtp_port = email_config['port']
 sender_email = email_config['sender']
@@ -36,6 +41,8 @@ recipient_email = email_config['recipient']
 sender_password = os.environ.get('EMAIL_PASSWORD')
 if not sender_password:
     log("Warning: EMAIL_PASSWORD environment variable not set")
+else:
+    log("EMAIL_PASSWORD environment variable is set")
 
 def is_reachable(ip):
     """Check if a device is reachable via ping."""
@@ -61,30 +68,45 @@ def check_device(device):
 
 def send_alert(message):
     """Send email alerts"""
+    log(f"Attempting to send alert email to {recipient_email}")
+    log(f"Email content: {message}")
+    
     msg = MIMEText(message)
     msg['Subject'] = "Network Alert"
     msg['From'] = sender_email
     msg['To'] = recipient_email
 
     try:
+        log(f"Connecting to SMTP server {smtp_server}:{smtp_port}")
         server = smtplib.SMTP(smtp_server, smtp_port)
+        log("Starting TLS")
         server.starttls()
+        log("Logging in to SMTP server")
         server.login(sender_email, sender_password)
+        log("Sending message")
         server.send_message(msg)
         server.quit()
-        log("Alert email sent")
+        log("Alert email sent successfully")
     except Exception as e:
-        log(f"Email failed: {str(e)}")
+        log(f"Email failed - Full error: {str(e)}")
+        # Print more details about the error
+        import traceback
+        log(f"Error traceback: {traceback.format_exc()}")
 
 def main():
     log("Starting monitor")
+    
+    # Send startup notification
+    startup_message = "Network Monitor System has started\n\nTime: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    send_alert(startup_message)
     
     # Import web server after logging is set up
     from web_server import start_web_server, init_monitor
     
     # Initialize the web server with our monitoring functions
     init_monitor(check_device=check_device,
-                is_reachable=is_reachable)
+                is_reachable=is_reachable,
+                send_alert=send_alert)
     
     # Start the web server (this will block)
     start_web_server()

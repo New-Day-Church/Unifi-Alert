@@ -9,6 +9,7 @@ services:
       - ./logs:/app/logs
     environment:
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - PORT=5002  # Change to port 5002
     cap_add:
       - NET_RAW  # Required for ping
     network_mode: host  # Access local network devices
