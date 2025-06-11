@@ -17,8 +17,13 @@ _check_device = None
 _is_reachable = None
 _send_alert = None
 
-# Alert cooldown configuration (in minutes)
-ALERT_COOLDOWN = 30  # Will only send repeat alerts every 30 minutes
+# Alert timing configuration (in minutes)
+INITIAL_DELAY = 5  # Wait 5 minutes before sending first alert
+ALERT_COOLDOWN = 360  # Wait 6 hours (360 minutes) between subsequent alerts
+
+# Monitoring configuration (in seconds)
+PING_INTERVAL = int(os.environ.get('PING_INTERVAL', 30))  # Check devices every 30 seconds
+UNREACHABLE_THRESHOLD = 2  # Number of failed pings before considering device down
 
 def log(message):
     """Logging function"""
@@ -33,25 +38,50 @@ def log(message):
     with open(os.path.join(log_dir, 'network_monitor.log'), 'a') as f:
         f.write(log_entry + '\n')
 
-# Shared data structure to store device status
+# Shared data structure to store device status and ping failures
 data = {
     "device_status": {}
 }
+ping_failures = {}  # Track consecutive ping failures
 
-# Track last alert time for each device
+# Track alert times and initial failure times for each device
 last_alert_times = {}
+initial_failure_times = {}
 
-def can_send_alert(device_name):
-    """Check if enough time has passed since the last alert for this device"""
+def can_send_alert(device_name, is_first_alert=False):
+    """Check if enough time has passed to send an alert"""
+    now = datetime.now()
+    
+    # For first alert after device goes down
+    if is_first_alert:
+        if device_name not in initial_failure_times:
+            return False
+        time_since_failure = now - initial_failure_times[device_name]
+        return time_since_failure >= timedelta(minutes=INITIAL_DELAY)
+    
+    # For subsequent alerts
     if device_name not in last_alert_times:
         return True
     
-    time_since_last_alert = datetime.now() - last_alert_times[device_name]
-    return time_since_last_alert > timedelta(minutes=ALERT_COOLDOWN)
+    time_since_last_alert = now - last_alert_times[device_name]
+    return time_since_last_alert >= timedelta(minutes=ALERT_COOLDOWN)
 
-def update_last_alert_time(device_name):
+def update_alert_time(device_name):
     """Update the last alert time for a device"""
     last_alert_times[device_name] = datetime.now()
+
+def mark_device_down(device_name):
+    """Mark when a device first goes down"""
+    if device_name not in initial_failure_times:
+        initial_failure_times[device_name] = datetime.now()
+        log(f"Device {device_name} marked as down. Initial alert will be sent in {INITIAL_DELAY} minutes")
+
+def reset_device_status(device_name):
+    """Reset tracking when a device comes back up"""
+    if device_name in initial_failure_times:
+        del initial_failure_times[device_name]
+    if device_name in last_alert_times:
+        del last_alert_times[device_name]
 
 def init_monitor(check_device, is_reachable, send_alert):
     """Initialize the monitor with required functions."""
@@ -74,33 +104,56 @@ def update_data():
             for device in devices:
                 try:
                     # Check device status
-                    alerts = _check_device(device)
-                    status = "Alert" if alerts else "OK"
                     is_reachable = _is_reachable(device["ip"])
+                    
+                    # Track consecutive failures
+                    if not is_reachable:
+                        ping_failures[device["name"]] = ping_failures.get(device["name"], 0) + 1
+                        log(f"Ping failure {ping_failures[device['name']]} for {device['name']}")
+                    else:
+                        ping_failures[device["name"]] = 0
+                    
+                    # Only consider device down after threshold failures
+                    device_down = ping_failures.get(device["name"], 0) >= UNREACHABLE_THRESHOLD
+                    alerts = _check_device(device) if device_down else []
+                    status = "Alert" if alerts else "OK"
                     
                     # Update device status in data structure
                     data["device_status"][device["name"]] = {
                         "status": status,
                         "messages": alerts,
                         "ip": device["ip"],
-                        "reachable": is_reachable
+                        "reachable": not device_down
                     }
                     
-                    # Check if device state changed or if it's still in alert state
+                    # Check if device state changed
                     prev_state = device_alert_state.get(device["name"], {"reachable": True, "alerts": []})
-                    state_changed = is_reachable != prev_state["reachable"] or alerts != prev_state["alerts"]
+                    state_changed = (not device_down) != prev_state["reachable"]
                     
-                    if not is_reachable and (state_changed or can_send_alert(device["name"])):
-                        alert_msg = f"Device {device['name']} ({device['ip']}) is unreachable"
-                        current_alerts.append(alert_msg)
-                        log(f"Adding alert: {alert_msg}")
+                    if device_down:
+                        # Device is down
                         if state_changed:
-                            log(f"State change for {device['name']}: Previously {'reachable' if prev_state['reachable'] else 'unreachable'}")
-                        update_last_alert_time(device["name"])
-                            
+                            # Just went down, mark it
+                            mark_device_down(device["name"])
+                            log(f"Device {device['name']} has gone down after {UNREACHABLE_THRESHOLD} failed pings")
+                        
+                        # Check if we should send an alert
+                        is_first_alert = device["name"] not in last_alert_times
+                        if can_send_alert(device["name"], is_first_alert):
+                            alert_msg = f"Device {device['name']} ({device['ip']}) is unreachable"
+                            current_alerts.append(alert_msg)
+                            log(f"Adding alert: {alert_msg}")
+                            update_alert_time(device["name"])
+                    else:
+                        # Device is up
+                        if state_changed and device["name"] in initial_failure_times:
+                            # Just came back up
+                            log(f"Device {device['name']} has recovered")
+                            reset_device_status(device["name"])
+                    
                     # Update stored state
                     device_alert_state[device["name"]] = {
-                        "reachable": is_reachable,
+                        "reachable": not device_down,
                         "alerts": alerts
                     }
                     
@@ -112,12 +165,12 @@ def update_data():
             if current_alerts and _send_alert:
                 alert_text = "Network Monitor Alerts:\n\n" + "\n".join(f"- {msg}" for msg in current_alerts)
                 if len(current_alerts) > 1:
-                    alert_text += f"\n\nNote: Next alert for these devices will be sent after {ALERT_COOLDOWN} minutes if they remain unreachable."
+                    alert_text += f"\n\nNote: Next alerts for these devices will be sent after {ALERT_COOLDOWN/60:.1f} hours if they remain unreachable."
                 else:
-                    alert_text += f"\n\nNote: Next alert for this device will be sent after {ALERT_COOLDOWN} minutes if it remains unreachable."
+                    alert_text += f"\n\nNote: Next alert for this device will be sent after {ALERT_COOLDOWN/60:.1f} hours if it remains unreachable."
                 _send_alert(alert_text)
             
-            time.sleep(5)  # Update every 5 seconds
+            time.sleep(PING_INTERVAL)  # Wait before next check
             
         except Exception as e:
             log(f"Error in update thread: {str(e)}")
